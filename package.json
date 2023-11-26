@@ -1,6 +1,6 @@
 {
   "name": "iobroker.open-epaper-link",
-  "version": "0.0.1",
+  "version": "0.1.0",
   "description": "ioBroker integration for alternative firmware and protocol for the ZBS243-based Electronic Shelf Labels - ESL / price tags by Solum / Samsung. It can be used to setup E-Paper tags and supply them with content.",
   "author": {
     "name": "DutchmanNL",
