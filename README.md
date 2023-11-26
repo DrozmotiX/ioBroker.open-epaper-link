@@ -1,4 +1,4 @@
-![logo-iobroker-oepl_4](https://github.com/DrozmotiX/iobroker.open-epaper-link/assets/3323812/2c14b1da-7233-4b76-9572-5be4cb3951b2)
+![logo-iobroker-oepl_5](https://github.com/DrozmotiX/iobroker.open-epaper-link/assets/3323812/d50efbd4-11be-4c18-9219-0151d242d716)
 
 # ioBroker.open-epaper-link
 
