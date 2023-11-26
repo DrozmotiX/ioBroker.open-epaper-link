@@ -20,11 +20,15 @@ This adapter specifically focuses on facilitating communication between the OEPL
 For more information about OpenEPaperLink, valuable insights can be found at:
 
 https://www.openepaperlink.de
+
 https://github.com/jjwbruijn/OpenEPaperLink
+
 Additionally, comprehensive tutorials and demonstrations about OpenEPaperLink are available in various YouTube videos by ATC1441, including:
 
 https://www.youtube.com/watch?v=Etonkolz9Bs
+
 https://www.youtube.com/watch?v=98fOzZs__fc
+
 These resources offer a wealth of information and guidance on understanding and utilizing OpenEPaperLink effectively.
 
 > [!Note] Development status
