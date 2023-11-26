@@ -65,6 +65,11 @@ class OpenEpaperLink extends utils.Adapter {
         }
       });
       import_iobroker_jsonexplorer.default.stateSetCreate(`${apConnection[deviceIP].deviceName}._info.connected`, "connected", true);
+      import_iobroker_jsonexplorer.default.stateSetCreate(
+        `${apConnection[deviceIP].deviceName}._info.ip`,
+        "Access Point IP-Address",
+        apConnection[deviceIP].ip
+      );
     });
     apConnection[deviceIP].connection.on("message", (message) => {
       this.log.info(`Received message from server: ${message}`);

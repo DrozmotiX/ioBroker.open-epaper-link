@@ -90,6 +90,11 @@ class OpenEpaperLink extends utils.Adapter {
 			});
 
 			jsonExplorer.stateSetCreate(`${apConnection[deviceIP].deviceName}._info.connected`, 'connected', true);
+			jsonExplorer.stateSetCreate(
+				`${apConnection[deviceIP].deviceName}._info.ip`,
+				'Access Point IP-Address',
+				apConnection[deviceIP].ip,
+			);
 		});
 
 		apConnection[deviceIP].connection.on('message', (message: string) => {
@@ -111,7 +116,6 @@ class OpenEpaperLink extends utils.Adapter {
 			}
 			apConnection[deviceIP].connectionStatus = 'Connected';
 			jsonExplorer.stateSetCreate(`${apConnection[deviceIP].deviceName}._info.connected`, 'connected', true);
-
 		});
 
 		apConnection[deviceIP].connection.on('close', () => {
