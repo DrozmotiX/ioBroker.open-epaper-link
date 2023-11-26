@@ -1,5 +1,24 @@
 {
-	"open-epaper-link adapter settings": "open-epaper-link的适配器设置",
-	"option1": "选项1",
-	"option2": "选项2"
+    "open-epaper-link adapter settings": "open-epaper-link 的适配器设置",
+    "lbl_addUpdateAP": "添加接入点",
+    "ttp_addUpdateAP": "将新的接入点添加到适配器",
+    "hlp_addUpdateAP": "接入点（别名）名称",
+    "lblDeleteAP": "删除接入点",
+    "ttpDeleteAP": "必须选择接入点 IP",
+    "hlpDeleteAP": "删除接入点",
+    "lblDevicesTable": "连接的接入点",
+    "ttlApName": "切入点",
+    "ttpApName": "（别名）接入点名称",
+    "ttlIP-Address": "接入点 IP 地址",
+    "ttpIP-Address": "接入点 IP 地址",
+    "ttlConnectState": "连接状态",
+    "ttpConnectState": "与 Access Point 的 Websocket 连接状态",
+    "lblLoadAccessPoints": "通过适配器加载所有已知接入点",
+    "ttpLoadAccessPoints": "向后端发送命令以加载所有当前已知的接入点及其连接状态",
+    "lblTxtNoButtonsIfNotActive": "适配器必须正在运行才能显示或添加连接的接入点",
+    "lblApName": "接入点名称",
+    "hlpApName": "lbl加载接入点",
+    "lblApIP": "接入点 IP 地址",
+    "ttpApIP": "接入点 IP 地址",
+    "hlpApIP": "接入点 IP 地址"
 }

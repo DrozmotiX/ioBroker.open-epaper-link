@@ -1,5 +1,24 @@
 {
-	"open-epaper-link adapter settings": "Ustawienia adaptera dla open-epaper-link",
-	"option1": "opcja 1",
-	"option2": "Opcja 2"
+    "open-epaper-link adapter settings": "Ustawienia adaptera dla open-epaper-link",
+    "lbl_addUpdateAP": "Dodaj punkt dostępowy",
+    "ttp_addUpdateAP": "Dodaj nowy AccessPoint do adaptera",
+    "hlp_addUpdateAP": "Nazwa punktu dostępu (alias).",
+    "lblDeleteAP": "Usuń AccessPoint",
+    "ttpDeleteAP": "Należy wybrać adres IP punktu dostępowego",
+    "hlpDeleteAP": "Usuń AccessPoint",
+    "lblDevicesTable": "Połączone punkty dostępowe",
+    "ttlApName": "Punkt dostępu",
+    "ttpApName": "(Alias) Nazwa punktu dostępowego",
+    "ttlIP-Address": "Adres IP punktu dostępowego",
+    "ttpIP-Address": "Adres IP punktu dostępowego",
+    "ttlConnectState": "Status połączenia",
+    "ttpConnectState": "Stan połączenia Websocket z punktem dostępowym",
+    "lblLoadAccessPoints": "Załaduj wszystkie znane punkty dostępu według adaptera",
+    "ttpLoadAccessPoints": "Wysyła polecenie do backendu, aby załadować wszystkie znane punkty dostępu i stan ich połączeń",
+    "lblTxtNoButtonsIfNotActive": "Aby wyświetlić lub dodać podłączone punkty dostępowe, adapter musi być uruchomiony",
+    "lblApName": "Nazwa punktu dostępu",
+    "hlpApName": "lblLoadAccessPoints",
+    "lblApIP": "Adres IP punktu dostępowego",
+    "ttpApIP": "Adres IP punktu dostępowego",
+    "hlpApIP": "Adres IP punktu dostępowego"
 }

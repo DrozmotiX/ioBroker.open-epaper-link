@@ -1,5 +1,24 @@
 {
-	"open-epaper-link adapter settings": "Paramètres d'adaptateur pour open-epaper-link",
-	"option1": "Option 1",
-	"option2": "Option 2"
+    "open-epaper-link adapter settings": "Paramètres de l'adaptateur pour open-epaper-link",
+    "lbl_addUpdateAP": "Ajouter un point d'accès",
+    "ttp_addUpdateAP": "Ajouter un nouveau point d'accès à l'adaptateur",
+    "hlp_addUpdateAP": "Nom du point d'accès (alias)",
+    "lblDeleteAP": "Supprimer le point d'accès",
+    "ttpDeleteAP": "AccessPoint IP doit être sélectionné",
+    "hlpDeleteAP": "Supprimer le point d'accès",
+    "lblDevicesTable": "Points d'accès connectés",
+    "ttlApName": "Point d'accès",
+    "ttpApName": "(Alias) Nom du point d'accès",
+    "ttlIP-Address": "Adresse IP du point d'accès",
+    "ttpIP-Address": "Adresse IP du point d'accès",
+    "ttlConnectState": "Statut de connexion",
+    "ttpConnectState": "État de la connexion Websocket avec Access Point",
+    "lblLoadAccessPoints": "Tout charger par adaptateur de points d'accès connus",
+    "ttpLoadAccessPoints": "Envoie une commande au backend pour charger tous les points d'accès connus actuels et l'état de leurs connexions",
+    "lblTxtNoButtonsIfNotActive": "L'adaptateur doit être en cours d'exécution pour afficher ou ajouter des points d'accès connectés",
+    "lblApName": "Nom du point d'accès",
+    "hlpApName": "lblLoadAccessPoints",
+    "lblApIP": "Adresse IP du point d'accès",
+    "ttpApIP": "Adresse IP du point d'accès",
+    "hlpApIP": "Adresse IP du point d'accès"
 }

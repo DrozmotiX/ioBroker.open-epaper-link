@@ -2,15 +2,177 @@
 	"i18n": true,
 	"type": "panel",
 	"items": {
-		"option1": {
-			"type": "checkbox",
-			"label": "option1",
-			"newLine": true
+
+		// Enable/disable autodiscovery and store setting in adapter config object
+		// Currenlty not implemented
+//		"autodiscovery": {
+//			"newLine": true,
+//			"disabled": "true",
+//			"type": "checkbox",
+//			"sm": 4,
+//			"md": 4,
+//			"label": "lblAutoDiscovery"
+//		},
+
+		// Refresh table showing all devices
+		// Sends message to backend to get all current known devices, their configuration and connection status
+		"loadAccessPoints": {
+			"newLine": true,
+			"type": "sendTo",
+			"hidden": "!_alive",
+			"command": "loadAccessPoints",
+			"jsonData": "{ \"date\": \"${data}\"}",
+			"label": "lblLoadAccessPoints",
+			"tooltip": "ttpLoadAccessPoints",
+			"useNative": true,
+			"variant": "outlined",
+			"showProcess" : true,
+			"xs": 12,
+			"sm": 12,
+			"md": 12,
+			"lg": 12
 		},
-		"option2": {
-			"type": "text",
-			"label": "option2",
-			"newLine": true
+
+		// Text to explain adapter must be running to load this table
+		"details-1": {
+			"newLine": true,
+			"type": "staticText",
+			"text": "lblTxtNoButtonsIfNotActive",
+			"hidden": "_alive",
+			"xs": 12,
+			"sm": 12,
+			"md": 12,
+			"lg": 12
+		},
+
+		// Input fields to ADD / Modify devices
+		"apName": {
+			"freeSolo": true,
+			"newLine": true,
+			"type": "autocompleteSendTo",
+			"command": "getApName",
+			"jsonData": "{ \"service\": \"${data.apName}\" }",
+			"label": "lblApName",
+			"default": "",
+			"tooltip": "ttpApName",
+			"help": "hlpApName",
+			"xs": 6,
+			"sm": 6,
+			"md": 6,
+			"lg": 6
+		},
+		"apIP": {
+			"freeSolo": true,
+			"type": "autocompleteSendTo",
+			"command": "getApIP",
+			"jsonData": "{ \"service\": \"${data.ApIP}\" }",
+			"label": "lblApIP",
+			"default": "",
+			"tooltip": "ttpApIP",
+			"help": "hlpApIP",
+			"xs": 6,
+			"sm": 6,
+			"md": 6,
+			"lg": 6
+		},
+
+		// Button do ADD / Modify devices, sends
+		// Sends device Name and IP
+		"_addUpdateAP": {
+			"newLine": true,
+			"type": "sendTo",
+			"label": "lbl_addUpdateAP",
+			"variant": "outlined",
+			"showProcess" : true,
+			"command": "_addUpdateAP",
+			"jsonData": "{ \"apName\": \"${data.apName}\", \"apIP\": \"${data.apIP}\" }",
+			"useNative": true,
+			"disabled": "data.apName==='' || data.apIP===''",
+			"hidden": "!_alive",
+			"tooltip": "ttp_addUpdateAP",
+			"help": "hlp_addUpdateAP",
+			"xs": 6,
+			"sm": 6,
+			"md": 6,
+			"lg": 6
+		},
+
+		"deleteAP": {
+			"type": "sendTo",
+			"label": "lblDeleteAP",
+			"variant": "outlined",
+			"showProcess" : true,
+			"command": "deleteAP",
+			"jsonData": "{ \"ip\": \"${data.apName}\"}",
+			"useNative": true,
+			"disabled": "data.apIP===''",
+			"hidden": "!_alive",
+			"tooltip": "ttpDeleteAP",
+			"help": "hlpDeleteAP",
+			"xs": 6,
+			"sm": 6,
+			"md": 6,
+			"lg": 6,
+			"confirm" : {
+				"text" : "Are you sure to delete this AP ? Alle related states will be removed",
+				"title" : "Confirm device Deletion",
+				"ok" : "Delete Device",
+				"cancel" : "Cancel",
+				"type" : "warning"
+			}
+		},
+
+		// Table (provided by backend) of all devices and their connection status
+		"accessPointTable": {
+			"type": "table",
+			"noDelete": true,
+			"newLine": true,
+			"xs": 12,
+			"sm": 12,
+			"md": 5,
+			"lg": 12,
+			"hidden": "data._templateTable[0].template == 'template.NewMessage'",
+			"label": "lblDevicesTable",
+			"showSecondAddAt": 5,
+			"items": [
+				{
+					"type": "text",
+					"readOnly" : true,
+					"attr": "apName",
+					"width": "15% ",
+					"title": "ttlApName",
+					"tooltip": "ttpApName",
+					"filter": false,
+					"sort": false,
+					"default": "",
+					"validatorNoSaveOnError": true
+				},
+				{
+					"type": "text",
+					"attr": "ip",
+					"readOnly" : true,
+					"width": "15% ",
+					"title": "ttlIP-Address",
+					"tooltip": "ttpIP-Address",
+					"filter": false,
+					"sort": false,
+					"default": "",
+					"validatorNoSaveOnError": true
+				},
+				{
+					"type": "text",
+					"readOnly" : true,
+					"attr": "connectState",
+					"width": "15% ",
+					"title": "ttlConnectState",
+					"tooltip": "ttpConnectState",
+					"filter": false,
+					"sort": false,
+					"default": "",
+					"validatorNoSaveOnError": true
+				}
+
+			]
 		}
 	}
 }

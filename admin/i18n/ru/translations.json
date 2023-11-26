@@ -1,5 +1,24 @@
 {
-	"open-epaper-link adapter settings": "Настройки адаптера для open-epaper-link",
-	"option1": "Опция 1",
-	"option2": "вариант 2"
+    "open-epaper-link adapter settings": "Настройки адаптера для open-epaper-link",
+    "lbl_addUpdateAP": "Добавить точку доступа",
+    "ttp_addUpdateAP": "Добавьте новую точку доступа к адаптеру",
+    "hlp_addUpdateAP": "Имя точки доступа (псевдоним)",
+    "lblDeleteAP": "Удалить точку доступа",
+    "ttpDeleteAP": "IP-адрес точки доступа должен быть выбран.",
+    "hlpDeleteAP": "Удалить точку доступа",
+    "lblDevicesTable": "Подключенные точки доступа",
+    "ttlApName": "Точка доступа",
+    "ttpApName": "(Псевдоним) Имя точки доступа",
+    "ttlIP-Address": "IP-адрес точки доступа",
+    "ttpIP-Address": "IP-адрес точки доступа",
+    "ttlConnectState": "Статус подключения",
+    "ttpConnectState": "Статус соединения Websocket с точкой доступа",
+    "lblLoadAccessPoints": "Загрузка всех известных точек доступа адаптера",
+    "ttpLoadAccessPoints": "Отправляет команду на серверную часть для загрузки всех текущих известных точек доступа и состояния их соединений.",
+    "lblTxtNoButtonsIfNotActive": "Адаптер должен быть запущен, чтобы отображать или добавлять подключенные точки доступа.",
+    "lblApName": "Имя точки доступа",
+    "hlpApName": "лбллоадаксесспоинтс",
+    "lblApIP": "IP-адрес точки доступа",
+    "ttpApIP": "IP-адрес точки доступа",
+    "hlpApIP": "IP-адрес точки доступа"
 }
