@@ -78,6 +78,7 @@
     "LICENSE"
   ],
   "scripts": {
+    "startDev": "dev-server watch --noStart",
     "prebuild": "rimraf build",
     "build": "build-adapter ts",
     "watch": "build-adapter ts --watch",
