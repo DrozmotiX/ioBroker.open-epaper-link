@@ -25,11 +25,11 @@ Within the iobroker system, a central "openepaperlink" folder is created to grou
 
 This structured integration into the iobroker object structure ensures a user-friendly and organized representation of all OpenEPaperLink devices within the iobroker system. It enables efficient management, control, and interaction with OpenEPaperLink displays and access points through the iobroker interface.
 
-## For more information about OpenEPaperLink, valuable insights can be found at:
+### For more information about OpenEPaperLink, valuable insights can be found at:
 
 https://www.openepaperlink.de and https://github.com/jjwbruijn/OpenEPaperLink
 
-## Additionally, comprehensive tutorials and demonstrations about OpenEPaperLink are available in various YouTube videos by ATC1441, including:
+### Additionally, comprehensive tutorials and demonstrations about OpenEPaperLink are available in various YouTube videos by ATC1441, including:
 
 https://www.youtube.com/watch?v=Etonkolz9Bs
 
