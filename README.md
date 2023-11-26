@@ -17,6 +17,14 @@ See GitHub Project [](https://github.com/jjwbruijn/OpenEPaperLink)
 
 This adapter specifically focuses on facilitating communication between the OEPL Access Point and iobroker. It serves as a tool to streamline and enhance the interaction between these two components, enabling seamless integration and communication between the OEPL system and iobroker. The mentioned resources provide valuable information to understand and optimize this communication for effective system operation.
 
+The OpenEPaperLink adapter is designed to seamlessly integrate all displays and access points from OpenEPaperLink into the iobroker object structure. This integration is structured within the main folder "OpenEPaperLink," categorized and organized based on the MAC addresses of individual devices.
+
+Within the iobroker system, a central "OpenEPaperLink" folder is created to group all connected devices. This main folder serves as a container, ensuring a clear and organized representation of various displays and access points.
+
+Devices are organized according to their unique MAC addresses. This method allows for clear identification and separation of each device within the iobroker system. Each display and access point has its own specific structure within the main folder, facilitating targeted management and control of individual devices.
+
+This structured integration into the iobroker object structure ensures a user-friendly and organized representation of all OpenEPaperLink devices within the iobroker system. It enables efficient management, control, and interaction with OpenEPaperLink displays and access points through the iobroker interface.
+
 ## For more information about OpenEPaperLink, valuable insights can be found at:
 
 https://www.openepaperlink.de
@@ -30,14 +38,6 @@ https://www.youtube.com/watch?v=Etonkolz9Bs
 https://www.youtube.com/watch?v=98fOzZs__fc
 
 These resources offer a wealth of information and guidance on understanding and utilizing OpenEPaperLink effectively.
-
-The OpenEPaperLink adapter is designed to seamlessly integrate all displays and access points from OpenEPaperLink into the iobroker object structure. This integration is structured within the main folder "OpenEPaperLink," categorized and organized based on the MAC addresses of individual devices.
-
-Within the iobroker system, a central "OpenEPaperLink" folder is created to group all connected devices. This main folder serves as a container, ensuring a clear and organized representation of various displays and access points.
-
-Devices are organized according to their unique MAC addresses. This method allows for clear identification and separation of each device within the iobroker system. Each display and access point has its own specific structure within the main folder, facilitating targeted management and control of individual devices.
-
-This structured integration into the iobroker object structure ensures a user-friendly and organized representation of all OpenEPaperLink devices within the iobroker system. It enables efficient management, control, and interaction with OpenEPaperLink displays and access points through the iobroker interface.
 
 > [!Note] Development status
 > This repository currently only has a basic "meta" adapter source and admin configuration framework which will be translated to a working solution during the next weeks.
