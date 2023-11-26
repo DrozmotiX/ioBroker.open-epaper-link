@@ -82,21 +82,42 @@ class OpenEpaperLink extends utils.Adapter {
 					ip: apConnection[deviceIP].ip,
 				},
 			});
+			this.extendObject(`${apConnection[deviceIP].deviceName}._info`, {
+				type: 'channel',
+				common: {
+					name: 'Connection detail',
+				},
+			});
+
+			jsonExplorer.stateSetCreate(`${apConnection[deviceIP].deviceName}._info.connected`, 'connected', true);
 		});
 
 		apConnection[deviceIP].connection.on('message', (message: string) => {
 			//ToDo: Design messageHandler to write values to states
 			this.log.info(`Received message from server: ${message}`);
 			message = JSON.parse(message);
+			let modifiedMessage;
 
-			//ToDo: modify JSON data to store states into correct channel
-			jsonExplorer.traverseJson(message, apConnection[deviceIP].deviceName);
+			// eslint-disable-next-line @typescript-eslint/ban-ts-comment
+			// @ts-expect-error
+			if (message && message['sys']) {
+				// eslint-disable-next-line @typescript-eslint/ban-ts-comment
+				// @ts-expect-error
+				modifiedMessage = message['sys'];
+				jsonExplorer.traverseJson(modifiedMessage, `${apConnection[deviceIP].deviceName}._info`);
+			} else {
+				modifiedMessage = message;
+				jsonExplorer.traverseJson(modifiedMessage, apConnection[deviceIP].deviceName);
+			}
 			apConnection[deviceIP].connectionStatus = 'Connected';
+			jsonExplorer.stateSetCreate(`${apConnection[deviceIP].deviceName}._info.connected`, 'connected', true);
+
 		});
 
 		apConnection[deviceIP].connection.on('close', () => {
 			this.log.info('Disconnected from server');
 			apConnection[deviceIP].connectionStatus = 'Disconnected';
+			jsonExplorer.stateSetCreate(`${apConnection[deviceIP].deviceName}._info.connected`, 'connected', false);
 		});
 	}
 
