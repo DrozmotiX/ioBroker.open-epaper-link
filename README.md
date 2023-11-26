@@ -1,4 +1,5 @@
-![Logo](admin/open-epaper-link.png)
+<img width="525" alt="logo-iobroker-oepl_5" src="https://github.com/DrozmotiX/iobroker.open-epaper-link/assets/3323812/d566aae2-1115-4113-8890-fd9c2549d051">
+
 # ioBroker.open-epaper-link
 
 [![NPM version](https://img.shields.io/npm/v/iobroker.open-epaper-link.svg)](https://www.npmjs.com/package/iobroker.open-epaper-link)
@@ -13,7 +14,7 @@
 ## open-epaper-link adapter for ioBroker
 
 Alternative firmware and protocol for the ZBS243-based Electronic Shelf Labels - ESL / price tags by Solum / Samsung. It can be used to setup E-Paper tags and supply them with content.
-See GitHub Project [](https://github.com/jjwbruijn/OpenEPaperLink)
+See GitHub Project https://github.com/jjwbruijn/OpenEPaperLink
 
 ![image](https://github.com/DrozmotiX/iobroker.open-epaper-link/assets/3323812/7670ef2b-ab15-47c0-8bf8-dc70a9bdbf32)
 
@@ -25,17 +26,13 @@ Within the iobroker system, a central "openepaperlink" folder is created to grou
 
 This structured integration into the iobroker object structure ensures a user-friendly and organized representation of all OpenEPaperLink devices within the iobroker system. It enables efficient management, control, and interaction with OpenEPaperLink displays and access points through the iobroker interface.
 
-## For more information about OpenEPaperLink, valuable insights can be found at:
+**For more information about OpenEPaperLink, valuable insights can be found at:**
 
-https://www.openepaperlink.de
+https://www.openepaperlink.de and https://github.com/jjwbruijn/OpenEPaperLink
 
-https://github.com/jjwbruijn/OpenEPaperLink
+**Additionally, comprehensive tutorials and demonstrations about OpenEPaperLink are available in various YouTube videos by ATC1441, including:**
 
-## Additionally, comprehensive tutorials and demonstrations about OpenEPaperLink are available in various YouTube videos by ATC1441, including:
-
-https://www.youtube.com/watch?v=Etonkolz9Bs
-
-https://www.youtube.com/watch?v=98fOzZs__fc
+https://www.youtube.com/watch?v=Etonkolz9Bs and https://www.youtube.com/watch?v=98fOzZs__fc
 
 These resources offer a wealth of information and guidance on understanding and utilizing OpenEPaperLink effectively.
 
