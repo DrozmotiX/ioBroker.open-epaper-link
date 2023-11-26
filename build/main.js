@@ -37,9 +37,26 @@ class OpenEpaperLink extends utils.Adapter {
   }
   async onReady() {
     this.setState("info.connection", false, true);
+    await this.tryKnownDevices();
     this.setState("info.connection", true, true);
   }
+  async tryKnownDevices() {
+    try {
+      this.log.info(`Try to connect to know devices`);
+      const knownDevices = await this.getDevicesAsync();
+      if (!knownDevices)
+        return;
+      for (const i in knownDevices) {
+        const deviceDetails = knownDevices[i];
+        if (!deviceDetails.native.ip)
+          continue;
+        this.wsConnectionHandler(deviceDetails.native.ip, deviceDetails.common.name);
+      }
+    } catch (error) {
+    }
+  }
   wsConnectionHandler(deviceIP, deviceName) {
+    this.log.info(`Starting connection to ${deviceName} on IP ${deviceIP}`);
     apConnection[deviceIP] = {
       connection: new import_ws.default(`ws://${deviceIP}/ws`),
       connectionStatus: "Connecting",
@@ -47,7 +64,7 @@ class OpenEpaperLink extends utils.Adapter {
       ip: deviceIP
     };
     apConnection[deviceIP].connection.on("open", () => {
-      this.log.info("Connected to server");
+      this.log.info(`Connected to AccessPoint ${apConnection[deviceIP].deviceName} on ${apConnection[deviceIP].ip}`);
       apConnection[deviceIP].connectionStatus = "Connected";
       if (messageResponse[deviceIP]) {
         this.sendTo(
@@ -83,7 +100,7 @@ class OpenEpaperLink extends utils.Adapter {
       );
     });
     apConnection[deviceIP].connection.on("message", (message) => {
-      this.log.info(`Received message from server: ${message}`);
+      this.log.debug(`Received message from server: ${message}`);
       message = JSON.parse(message);
       let modifiedMessage;
       if (message && message["sys"]) {
@@ -98,8 +115,10 @@ class OpenEpaperLink extends utils.Adapter {
     });
     apConnection[deviceIP].connection.on("close", () => {
       this.log.info("Disconnected from server");
-      apConnection[deviceIP].connectionStatus = "Disconnected";
-      import_iobroker_jsonexplorer.default.stateSetCreate(`${apConnection[deviceIP].deviceName}._info.connected`, "connected", false);
+      if (apConnection[deviceIP]) {
+        apConnection[deviceIP].connectionStatus = "Disconnected";
+        import_iobroker_jsonexplorer.default.stateSetCreate(`${apConnection[deviceIP].deviceName}._info.connected`, "connected", false);
+      }
     });
   }
   onUnload(callback) {
@@ -117,9 +136,9 @@ class OpenEpaperLink extends utils.Adapter {
   }
   onStateChange(id, state) {
     if (state) {
-      this.log.info(`state ${id} changed: ${state.val} (ack = ${state.ack})`);
+      this.log.debug(`state ${id} changed: ${state.val} (ack = ${state.ack})`);
     } else {
-      this.log.info(`state ${id} deleted`);
+      this.log.debug(`state ${id} deleted`);
     }
   }
   onMessage(obj) {
@@ -188,6 +207,40 @@ class OpenEpaperLink extends utils.Adapter {
                 });
               }
               this.sendTo(obj.from, obj.command, dropDownEntry, obj.callback);
+            }
+            break;
+          case "deleteAP":
+            messageResponse[obj.message["apIP"]] = obj;
+            if (apConnection[obj.message["apIP"]]) {
+              try {
+                if (apConnection[obj.message["apIP"]].connection)
+                  apConnection[obj.message["apIP"]].connection.close();
+              } catch (e) {
+              }
+              try {
+                this.delObject(apConnection[obj.message["apIP"]].deviceName, { recursive: true });
+              } catch (e) {
+              }
+              delete apConnection[obj.message["apIP"]];
+              this.sendTo(
+                messageResponse[obj.message["apIP"]].from,
+                messageResponse[obj.message["apIP"]].command,
+                { result: "OK - Device successfully removed" },
+                messageResponse[obj.message["apIP"]].callback
+              );
+              delete messageResponse[obj.message["apIP"]];
+            } else {
+              this.sendTo(
+                obj.from,
+                obj.command,
+                {
+                  error: `Provided IP-Address ${JSON.stringify(
+                    obj.message
+                  )} unknown, please refresh table and enter an valid IP-Address`
+                },
+                obj.callback
+              );
+              return;
             }
             break;
         }

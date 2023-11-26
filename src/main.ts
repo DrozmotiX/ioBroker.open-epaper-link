@@ -50,8 +50,34 @@ class OpenEpaperLink extends utils.Adapter {
 		// Reset the connection indicator during startup
 		this.setState('info.connection', false, true);
 
-		// ToDo: Establish connection to all already known devices
+		// Try to connect to known devices
+		await this.tryKnownDevices();
 		this.setState('info.connection', true, true);
+	}
+
+	// Try to contact and read data of already known devices
+	private async tryKnownDevices() {
+		try {
+			// Get all current devices from adapter tree
+			this.log.info(`Try to connect to know devices`);
+			const knownDevices = await this.getDevicesAsync();
+
+			// Cancel operation if no devices are found
+			if (!knownDevices) return;
+
+			// Get connection data of known devices and to connect
+			for (const i in knownDevices) {
+				const deviceDetails = knownDevices[i];
+				// Cancell operation if object does not contain IP address
+				if (!deviceDetails.native.ip) continue;
+				// Start connection to this device
+				// eslint-disable-next-line @typescript-eslint/ban-ts-comment
+				// @ts-expect-error
+				this.wsConnectionHandler(deviceDetails.native.ip, deviceDetails.common.name);
+			}
+		} catch (error) {
+			// this.errorHandler(`[tryKnownDevices]`, error);
+		}
 	}
 
 	private wsConnectionHandler(deviceIP: string, deviceName: string): void {
