@@ -106,6 +106,24 @@ class OpenEpaperLink extends utils.Adapter {
       if (message && message["sys"]) {
         modifiedMessage = message["sys"];
         import_iobroker_jsonexplorer.default.traverseJson(modifiedMessage, `${apConnection[deviceIP].deviceName}._info`);
+      } else if (message && message["tags"]) {
+        modifiedMessage = message["tags"];
+        this.extendObject(`${apConnection[deviceIP].deviceName}.tags`, {
+          type: "channel",
+          common: {
+            name: "Tags"
+          }
+        });
+        this.extendObject(`${apConnection[deviceIP].deviceName}.tags.${message && message["tags"][0].mac}`, {
+          type: "channel",
+          common: {
+            name: message["tags"][0].alias
+          }
+        });
+        import_iobroker_jsonexplorer.default.traverseJson(
+          modifiedMessage,
+          `${apConnection[deviceIP].deviceName}.tags.${message && message["tags"][0].mac}`
+        );
       } else {
         modifiedMessage = message;
         import_iobroker_jsonexplorer.default.traverseJson(modifiedMessage, apConnection[deviceIP].deviceName);

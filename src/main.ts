@@ -149,6 +149,36 @@ class OpenEpaperLink extends utils.Adapter {
 				// @ts-expect-error
 				modifiedMessage = message['sys'];
 				jsonExplorer.traverseJson(modifiedMessage, `${apConnection[deviceIP].deviceName}._info`);
+				// eslint-disable-next-line @typescript-eslint/ban-ts-comment
+				// @ts-expect-error
+			} else if (message && message['tags']) {
+				//ToDO: Improvement required, channel creation for Tag ID should only be executed once
+				// eslint-disable-next-line @typescript-eslint/ban-ts-comment
+				// @ts-expect-error
+				modifiedMessage = message['tags'];
+				this.extendObject(`${apConnection[deviceIP].deviceName}.tags`, {
+					type: 'channel',
+					common: {
+						name: 'Tags',
+					},
+				});
+				//ToDO: Improvement required, channel creation for Tag ID should only be executed once
+				// eslint-disable-next-line @typescript-eslint/ban-ts-comment
+				// @ts-expect-error
+				this.extendObject(`${apConnection[deviceIP].deviceName}.tags.${message && message['tags'][0].mac}`, {
+					type: 'channel',
+					common: {
+						// eslint-disable-next-line @typescript-eslint/ban-ts-comment
+						// @ts-expect-error
+						name: message['tags'][0].alias,
+					},
+				});
+				jsonExplorer.traverseJson(
+					modifiedMessage,
+					// eslint-disable-next-line @typescript-eslint/ban-ts-comment
+					// @ts-expect-error
+					`${apConnection[deviceIP].deviceName}.tags.${message && message['tags'][0].mac}`,
+				);
 			} else {
 				modifiedMessage = message;
 				jsonExplorer.traverseJson(modifiedMessage, apConnection[deviceIP].deviceName);
