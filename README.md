@@ -13,7 +13,7 @@
 ## open-epaper-link adapter for ioBroker
 
 Alternative firmware and protocol for the ZBS243-based Electronic Shelf Labels - ESL / price tags by Solum / Samsung. It can be used to setup E-Paper tags and supply them with content.
-See GitHub Project [](https://github.com/jjwbruijn/OpenEPaperLink)
+See GitHub Project https://github.com/jjwbruijn/OpenEPaperLink
 
 ![image](https://github.com/DrozmotiX/iobroker.open-epaper-link/assets/3323812/7670ef2b-ab15-47c0-8bf8-dc70a9bdbf32)
 
@@ -27,9 +27,7 @@ This structured integration into the iobroker object structure ensures a user-fr
 
 ## For more information about OpenEPaperLink, valuable insights can be found at:
 
-https://www.openepaperlink.de
-
-https://github.com/jjwbruijn/OpenEPaperLink
+https://www.openepaperlink.de and https://github.com/jjwbruijn/OpenEPaperLink
 
 ## Additionally, comprehensive tutorials and demonstrations about OpenEPaperLink are available in various YouTube videos by ATC1441, including:
 
