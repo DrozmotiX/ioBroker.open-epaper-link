@@ -6,6 +6,11 @@
 // you need to create an adapter
 import * as utils from '@iobroker/adapter-core';
 
+// eslint-disable-next-line @typescript-eslint/ban-ts-comment
+// @ts-expect-error
+import jsonExplorer from 'iobroker-jsonexplorer'; // Use jsonExplorer library
+import { stateAttrb } from './lib/objectDefinitions';
+
 // Load your modules here, e.g.:
 // import * as fs from "fs";
 
@@ -17,9 +22,10 @@ class OpenEpaperLink extends utils.Adapter {
 		});
 		this.on('ready', this.onReady.bind(this));
 		this.on('stateChange', this.onStateChange.bind(this));
-		// this.on('objectChange', this.onObjectChange.bind(this));
+		this.on('message', this.onMessage.bind(this));
 		// this.on('message', this.onMessage.bind(this));
 		this.on('unload', this.onUnload.bind(this));
+		jsonExplorer.init(this, stateAttrb); // Initiate library to handle JSOn data & state creation
 	}
 
 	/**
