@@ -22,6 +22,7 @@ var import_ws = __toESM(require("ws"));
 var import_iobroker_jsonexplorer = __toESM(require("iobroker-jsonexplorer"));
 var import_objectDefinitions = require("./lib/objectDefinitions");
 const apConnection = [];
+const messageResponse = {};
 class OpenEpaperLink extends utils.Adapter {
   constructor(options = {}) {
     super({
@@ -36,19 +37,29 @@ class OpenEpaperLink extends utils.Adapter {
   }
   async onReady() {
     this.setState("info.connection", false, true);
-    this.wsConnectionHandler("192.168.10.150");
     this.setState("info.connection", true, true);
   }
-  wsConnectionHandler(deviceIP) {
+  wsConnectionHandler(deviceIP, deviceName) {
     apConnection[deviceIP] = {
       connection: new import_ws.default(`ws://${deviceIP}/ws`),
       connectionStatus: "Connecting",
-      deviceName: "testDevice",
+      deviceName,
       ip: deviceIP
     };
     apConnection[deviceIP].connection.on("open", () => {
       this.log.info("Connected to server");
       apConnection[deviceIP].connectionStatus = "Connected";
+      if (messageResponse[deviceIP]) {
+        this.sendTo(
+          messageResponse[deviceIP].from,
+          messageResponse[deviceIP].command,
+          {
+            result: "OK - Access Point successfully connected, initializing configuration. Refresh table to show all known devices"
+          },
+          messageResponse[deviceIP].callback
+        );
+        delete messageResponse[deviceIP];
+      }
       this.extendObject(apConnection[deviceIP].deviceName, {
         type: "device",
         common: {
@@ -132,7 +143,8 @@ class OpenEpaperLink extends utils.Adapter {
               );
             } else {
               this.log.info(`Valid IP address received`);
-              this.wsConnectionHandler(obj.message["apIP"]);
+              messageResponse[obj.message["apIP"]] = obj;
+              this.wsConnectionHandler(obj.message["apIP"], obj.message["apName"]);
             }
             break;
           case "loadAccessPoints":

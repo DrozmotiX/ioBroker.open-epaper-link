@@ -18,6 +18,7 @@ import WebSocket from 'ws';
 // eslint-disable-next-line @typescript-eslint/ban-ts-comment
 // @ts-expect-error
 const apConnection: ApConnection = [];
+const messageResponse: any = {};
 
 // eslint-disable-next-line @typescript-eslint/ban-ts-comment
 // @ts-expect-error
@@ -49,24 +50,35 @@ class OpenEpaperLink extends utils.Adapter {
 		// Reset the connection indicator during startup
 		this.setState('info.connection', false, true);
 
-		// Connect to test-device
-		this.wsConnectionHandler('192.168.10.150');
-
 		// ToDo: Establish connection to all already known devices
 		this.setState('info.connection', true, true);
 	}
 
-	private wsConnectionHandler(deviceIP: string): void {
+	private wsConnectionHandler(deviceIP: string, deviceName: string): void {
 		apConnection[deviceIP] = {
 			connection: new WebSocket(`ws://${deviceIP}/ws`),
 			connectionStatus: 'Connecting',
-			deviceName: 'testDevice',
+			deviceName: deviceName,
 			ip: deviceIP,
 		};
 
 		apConnection[deviceIP].connection.on('open', () => {
 			this.log.info('Connected to server');
 			apConnection[deviceIP].connectionStatus = 'Connected';
+
+			// Check if device connection is caused by adding  device from admin, if yes send OK message
+			if (messageResponse[deviceIP]) {
+				this.sendTo(
+					messageResponse[deviceIP].from,
+					messageResponse[deviceIP].command,
+					{
+						result: 'OK - Access Point successfully connected, initializing configuration. Refresh table to show all known devices',
+					},
+					messageResponse[deviceIP].callback,
+				);
+				delete messageResponse[deviceIP];
+			}
+
 			//ToDo: Create Device on connection state and store decide details
 			// eslint-disable-next-line @typescript-eslint/ban-ts-comment
 			this.extendObject(apConnection[deviceIP].deviceName, {
@@ -197,7 +209,8 @@ class OpenEpaperLink extends utils.Adapter {
 							);
 						} else {
 							this.log.info(`Valid IP address received`);
-							this.wsConnectionHandler(obj.message['apIP']);
+							messageResponse[obj.message['apIP']] = obj;
+							this.wsConnectionHandler(obj.message['apIP'], obj.message['apName']);
 						}
 						break;
 					//
