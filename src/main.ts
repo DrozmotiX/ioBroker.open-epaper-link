@@ -90,7 +90,9 @@ class OpenEpaperLink extends utils.Adapter {
 		};
 
 		apConnection[deviceIP].connection.on('open', () => {
-			this.log.info(`Connected to AccessPoint ${apConnection[deviceIP].deviceName} on ${apConnection[deviceIP].ip}`);
+			this.log.info(
+				`Connected to AccessPoint ${apConnection[deviceIP].deviceName} on ${apConnection[deviceIP].ip}`,
+			);
 			apConnection[deviceIP].connectionStatus = 'Connected';
 
 			// Check if device connection is caused by adding  device from admin, if yes send OK message

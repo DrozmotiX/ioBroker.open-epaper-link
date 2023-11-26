@@ -64,7 +64,9 @@ class OpenEpaperLink extends utils.Adapter {
       ip: deviceIP
     };
     apConnection[deviceIP].connection.on("open", () => {
-      this.log.info(`Connected to AccessPoint ${apConnection[deviceIP].deviceName} on ${apConnection[deviceIP].ip}`);
+      this.log.info(
+        `Connected to AccessPoint ${apConnection[deviceIP].deviceName} on ${apConnection[deviceIP].ip}`
+      );
       apConnection[deviceIP].connectionStatus = "Connected";
       if (messageResponse[deviceIP]) {
         this.sendTo(

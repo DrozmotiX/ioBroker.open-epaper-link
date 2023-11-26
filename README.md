@@ -36,7 +36,7 @@ https://www.youtube.com/watch?v=Etonkolz9Bs and https://www.youtube.com/watch?v=
 
 These resources offer a wealth of information and guidance on understanding and utilizing OpenEPaperLink effectively.
 
-> [!Note] Development status
+> [!WARNING] Development status
 > This repository currently only has a basic "meta" adapter source and admin configuration framework which will be translated to a working solution during the next weeks.
 
 ## Changelog
@@ -47,6 +47,8 @@ These resources offer a wealth of information and guidance on understanding and 
 
 ### **WORK IN PROGRESS**
 * (ticaki / DutchmanNL) initial release
+* (DutchmanNL) Connect to Access Points and receive their data
+* (DutchmanNL) Object structure to reflect Access Points and their connected tags
 
 ## License
 MIT License
