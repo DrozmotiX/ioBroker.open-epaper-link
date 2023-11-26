@@ -15,6 +15,8 @@
 Alternative firmware and protocol for the ZBS243-based Electronic Shelf Labels - ESL / price tags by Solum / Samsung. It can be used to setup E-Paper tags and supply them with content.
 See GitHub Project [](https://github.com/jjwbruijn/OpenEPaperLink)
 
+![image](https://github.com/DrozmotiX/iobroker.open-epaper-link/assets/3323812/7670ef2b-ab15-47c0-8bf8-dc70a9bdbf32)
+
 This adapter specifically focuses on facilitating communication between the OEPL Access Point and iobroker. It serves as a tool to streamline and enhance the interaction between these two components, enabling seamless integration and communication between the OEPL system and iobroker. The mentioned resources provide valuable information to understand and optimize this communication for effective system operation.
 
 The OpenEPaperLink adapter is designed to seamlessly integrate all displays and access points from OpenEPaperLink into the iobroker object structure. This integration is structured within the main folder "openepaperlink," categorized and organized based on the MAC addresses of individual tags and devices.
