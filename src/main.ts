@@ -55,6 +55,7 @@ class OpenEpaperLink extends utils.Adapter {
 	}
 
 	private wsConnectionHandler(deviceIP: string, deviceName: string): void {
+		this.log.info(`Starting connection to ${deviceName} on IP ${deviceIP}`);
 		apConnection[deviceIP] = {
 			connection: new WebSocket(`ws://${deviceIP}/ws`),
 			connectionStatus: 'Connecting',
@@ -63,7 +64,7 @@ class OpenEpaperLink extends utils.Adapter {
 		};
 
 		apConnection[deviceIP].connection.on('open', () => {
-			this.log.info('Connected to server');
+			this.log.info(`Connected to AccessPoint ${apConnection[deviceIP].deviceName} on ${apConnection[deviceIP].ip}`);
 			apConnection[deviceIP].connectionStatus = 'Connected';
 
 			// Check if device connection is caused by adding  device from admin, if yes send OK message
@@ -111,7 +112,7 @@ class OpenEpaperLink extends utils.Adapter {
 
 		apConnection[deviceIP].connection.on('message', (message: string) => {
 			//ToDo: Design messageHandler to write values to states
-			this.log.info(`Received message from server: ${message}`);
+			this.log.debug(`Received message from server: ${message}`);
 			message = JSON.parse(message);
 			let modifiedMessage;
 
@@ -132,8 +133,10 @@ class OpenEpaperLink extends utils.Adapter {
 
 		apConnection[deviceIP].connection.on('close', () => {
 			this.log.info('Disconnected from server');
-			apConnection[deviceIP].connectionStatus = 'Disconnected';
-			jsonExplorer.stateSetCreate(`${apConnection[deviceIP].deviceName}._info.connected`, 'connected', false);
+			if (apConnection[deviceIP]) {
+				apConnection[deviceIP].connectionStatus = 'Disconnected';
+				jsonExplorer.stateSetCreate(`${apConnection[deviceIP].deviceName}._info.connected`, 'connected', false);
+			}
 		});
 	}
 
@@ -170,10 +173,10 @@ class OpenEpaperLink extends utils.Adapter {
 	private onStateChange(id: string, state: ioBroker.State | null | undefined): void {
 		if (state) {
 			// The state was changed
-			this.log.info(`state ${id} changed: ${state.val} (ack = ${state.ack})`);
+			this.log.debug(`state ${id} changed: ${state.val} (ack = ${state.ack})`);
 		} else {
 			// The state was deleted
-			this.log.info(`state ${id} deleted`);
+			this.log.debug(`state ${id} deleted`);
 		}
 	}
 
@@ -265,43 +268,50 @@ class OpenEpaperLink extends utils.Adapter {
 						break;
 
 					// Handle front-end messages to delete devices
-					// case 'deleteDevice':
-					// 	this.messageResponse[obj.message.ip] = obj;
-					// 	if (clientDetails[obj.message.ip]) {
-					// 		// Ensure all existing connections are closed, will trigger disconnect event to clean-up memory attributes
-					// 		clientDetails[obj.message.ip].client.disconnect();
-					// 		// Try to delete Device Object including all underlying states
-					// 		try {
-					// 			await this.delObjectAsync(clientDetails[obj.message.ip].deviceName, { recursive: true });
-					// 		} catch (e) {
-					// 			// Deleting device channel failed
-					// 		}
-					//
-					// 		// Clean memory data
-					// 		delete clientDetails[obj.message.ip];
-					//
-					// 		// Send confirmation to frontend
-					// 		this.sendTo(
-					// 			this.messageResponse[obj.message.ip].from,
-					// 			this.messageResponse[obj.message.ip].command,
-					// 			{ result: 'OK - Device successfully removed' },
-					// 			this.messageResponse[obj.message.ip].callback,
-					// 		);
-					// 		delete this.messageResponse[obj.message.ip];
-					// 	} else {
-					// 		this.sendTo(
-					// 			obj.from,
-					// 			obj.command,
-					// 			{
-					// 				error: 'Provided IP-Address unknown, please refresh table and enter an valid IP-Address',
-					// 			},
-					// 			obj.callback,
-					// 		);
-					// 		return;
-					// 	}
-					//
-					// 	// this.sendTo(obj.from, obj.command, 1, obj.callback);
-					// 	break;
+					case 'deleteAP':
+						messageResponse[obj.message['apIP']] = obj;
+						if (apConnection[obj.message['apIP']]) {
+							// Ensure all existing connections are closed, will trigger disconnect event to clean-up memory attributes
+							try {
+								if (apConnection[obj.message['apIP']].connection)
+									apConnection[obj.message['apIP']].connection.close();
+							} catch (e) {
+								// Add error handler
+							}
+							// Try to delete Device Object including all underlying states
+							try {
+								this.delObject(apConnection[obj.message['apIP']].deviceName, { recursive: true });
+							} catch (e) {
+								// Deleting device channel failed
+							}
+
+							// Clean memory data
+							delete apConnection[obj.message['apIP']];
+
+							// Send confirmation to frontend
+							this.sendTo(
+								messageResponse[obj.message['apIP']].from,
+								messageResponse[obj.message['apIP']].command,
+								{ result: 'OK - Device successfully removed' },
+								messageResponse[obj.message['apIP']].callback,
+							);
+							delete messageResponse[obj.message['apIP']];
+						} else {
+							this.sendTo(
+								obj.from,
+								obj.command,
+								{
+									error: `Provided IP-Address ${JSON.stringify(
+										obj.message,
+									)} unknown, please refresh table and enter an valid IP-Address`,
+								},
+								obj.callback,
+							);
+							return;
+						}
+
+						// this.sendTo(obj.from, obj.command, 1, obj.callback);
+						break;
 				}
 			} catch (error) {
 				// this.errorHandler(`[onMessage]`, error);
