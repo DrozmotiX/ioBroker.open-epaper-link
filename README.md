@@ -17,13 +17,13 @@ See GitHub Project [](https://github.com/jjwbruijn/OpenEPaperLink)
 
 This adapter specifically focuses on facilitating communication between the OEPL Access Point and iobroker. It serves as a tool to streamline and enhance the interaction between these two components, enabling seamless integration and communication between the OEPL system and iobroker. The mentioned resources provide valuable information to understand and optimize this communication for effective system operation.
 
-For more information about OpenEPaperLink, valuable insights can be found at:
+## For more information about OpenEPaperLink, valuable insights can be found at:
 
 https://www.openepaperlink.de
 
 https://github.com/jjwbruijn/OpenEPaperLink
 
-Additionally, comprehensive tutorials and demonstrations about OpenEPaperLink are available in various YouTube videos by ATC1441, including:
+## Additionally, comprehensive tutorials and demonstrations about OpenEPaperLink are available in various YouTube videos by ATC1441, including:
 
 https://www.youtube.com/watch?v=Etonkolz9Bs
 
