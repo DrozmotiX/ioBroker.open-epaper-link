@@ -18,6 +18,10 @@ var __toESM = (mod, isNodeMode, target) => (target = mod != null ? __create(__ge
   mod
 ));
 var utils = __toESM(require("@iobroker/adapter-core"));
+var import_ws = __toESM(require("ws"));
+var import_iobroker_jsonexplorer = __toESM(require("iobroker-jsonexplorer"));
+var import_objectDefinitions = require("./lib/objectDefinitions");
+const apConnection = [];
 class OpenEpaperLink extends utils.Adapter {
   constructor(options = {}) {
     super({
@@ -26,34 +30,54 @@ class OpenEpaperLink extends utils.Adapter {
     });
     this.on("ready", this.onReady.bind(this));
     this.on("stateChange", this.onStateChange.bind(this));
+    this.on("message", this.onMessage.bind(this));
     this.on("unload", this.onUnload.bind(this));
+    import_iobroker_jsonexplorer.default.init(this, import_objectDefinitions.stateAttrb);
   }
   async onReady() {
     this.setState("info.connection", false, true);
-    this.log.info("config option1: " + this.config.option1);
-    this.log.info("config option2: " + this.config.option2);
-    await this.setObjectNotExistsAsync("testVariable", {
-      type: "state",
-      common: {
-        name: "testVariable",
-        type: "boolean",
-        role: "indicator",
-        read: true,
-        write: true
-      },
-      native: {}
+    this.wsConnectionHandler("192.168.10.150");
+    this.setState("info.connection", true, true);
+  }
+  wsConnectionHandler(deviceIP) {
+    apConnection[deviceIP] = {
+      connection: new import_ws.default(`ws://${deviceIP}/ws`),
+      connectionStatus: "Connecting",
+      deviceName: "testDevice",
+      ip: deviceIP
+    };
+    apConnection[deviceIP].connection.on("open", () => {
+      this.log.info("Connected to server");
+      apConnection[deviceIP].connectionStatus = "Connected";
+      this.extendObject(apConnection[deviceIP].deviceName, {
+        type: "device",
+        common: {
+          name: apConnection[deviceIP].deviceName
+        },
+        native: {
+          ip: apConnection[deviceIP].ip
+        }
+      });
     });
-    this.subscribeStates("testVariable");
-    await this.setStateAsync("testVariable", true);
-    await this.setStateAsync("testVariable", { val: true, ack: true });
-    await this.setStateAsync("testVariable", { val: true, ack: true, expire: 30 });
-    let result = await this.checkPasswordAsync("admin", "iobroker");
-    this.log.info("check user admin pw iobroker: " + result);
-    result = await this.checkGroupAsync("admin", "admin");
-    this.log.info("check group user admin group admin: " + result);
+    apConnection[deviceIP].connection.on("message", (message) => {
+      this.log.info(`Received message from server: ${message}`);
+      message = JSON.parse(message);
+      import_iobroker_jsonexplorer.default.traverseJson(message, apConnection[deviceIP].deviceName);
+      apConnection[deviceIP].connectionStatus = "Connected";
+    });
+    apConnection[deviceIP].connection.on("close", () => {
+      this.log.info("Disconnected from server");
+      apConnection[deviceIP].connectionStatus = "Disconnected";
+    });
   }
   onUnload(callback) {
     try {
+      for (const ap in apConnection) {
+        try {
+          apConnection[ap].connection.close();
+        } catch (e) {
+        }
+      }
       callback();
     } catch (e) {
       callback();
@@ -65,6 +89,83 @@ class OpenEpaperLink extends utils.Adapter {
     } else {
       this.log.info(`state ${id} deleted`);
     }
+  }
+  onMessage(obj) {
+    this.log.debug("Data from configuration received : " + JSON.stringify(obj));
+    if (typeof obj === "object" && obj.message) {
+      this.log.debug("Data from configuration received : " + JSON.stringify(obj));
+      try {
+        switch (obj.command) {
+          case "_addUpdateAP":
+            const ipValid = this.validateIPAddress(obj.message["apIP"]);
+            if (!ipValid) {
+              this.log.warn(`You entered an incorrect IP-Address, cannot add device !`);
+              this.sendTo(
+                obj.from,
+                obj.command,
+                {
+                  type: "error",
+                  message: "connection failed"
+                },
+                obj.callback
+              );
+            } else {
+              this.log.info(`Valid IP address received`);
+              this.wsConnectionHandler(obj.message["apIP"]);
+            }
+            break;
+          case "loadAccessPoints":
+            {
+              let data = {};
+              const tableEntry = [];
+              for (const device in apConnection) {
+                tableEntry.push({
+                  apName: apConnection[device].deviceName,
+                  ip: apConnection[device].ip,
+                  connectState: apConnection[device].connectionStatus
+                });
+              }
+              data = {
+                native: {
+                  accessPointTable: tableEntry
+                }
+              };
+              this.sendTo(obj.from, obj.command, data, obj.callback);
+            }
+            break;
+          case "getApName":
+            {
+              const dropDownEntry = [];
+              for (const device in apConnection) {
+                dropDownEntry.push({
+                  label: apConnection[device].deviceName,
+                  value: apConnection[device].deviceName
+                });
+              }
+              this.sendTo(obj.from, obj.command, dropDownEntry, obj.callback);
+            }
+            break;
+          case "getApIP":
+            {
+              const dropDownEntry = [];
+              for (const device in apConnection) {
+                dropDownEntry.push({
+                  label: apConnection[device].ip,
+                  value: apConnection[device].ip
+                });
+              }
+              this.sendTo(obj.from, obj.command, dropDownEntry, obj.callback);
+            }
+            break;
+        }
+      } catch (error) {
+      }
+    }
+  }
+  validateIPAddress(ipAddress) {
+    return /^(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\.(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\.(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\.(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)$/.test(
+      ipAddress
+    );
   }
 }
 if (require.main !== module) {
