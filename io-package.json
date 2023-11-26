@@ -1,104 +1,112 @@
 {
-	"common": {
-		"name": "open-epaper-link",
-		"version": "0.0.1",
-		"news": {
-			"0.0.1": {
-				"en": "initial release",
-				"de": "Erstveröffentlichung",
-				"ru": "Начальная версия",
-				"pt": "lançamento inicial",
-				"nl": "Eerste uitgave",
-				"fr": "Première version",
-				"it": "Versione iniziale",
-				"es": "Versión inicial",
-				"pl": "Pierwsze wydanie",
-				"uk": "Початкова версія",
-				"zh-cn": "首次出版"
-			}
-		},
-		"title": "OpenEPaperLink",
-		"titleLang": {
-			"en": "OpenEPaperLink",
-			"de": "OpenEPaperLink",
-			"ru": "OpenEPaperLink",
-			"pt": "OpenEPaperLink",
-			"nl": "OpenEPaperLink",
-			"fr": "OuvrirEPaperLink",
-			"it": "OpenEPaperLink",
-			"es": "OpenEPaperLink",
-			"pl": "Otwórz EPaperLink",
-			"uk": "OpenEPaperLink",
-			"zh-cn": "打开电子纸链接"
-		},
-		"desc": {
-			"en": "Alternative firmware and protocol for the ZBS243-based Electronic Shelf Labels - ESL / price tags by Solum / Samsung. It can be used to setup E-Paper tags and supply them with content.",
-			"de": "Alternative Firmware und Protokoll für die ZBS243-basierten elektronischen Regaletiketten – ESL/Preisschilder von Solum/Samsung. Damit lassen sich E-Paper-Tags einrichten und mit Inhalten versorgen.",
-			"ru": "Альтернативная прошивка и протокол для электронных ценников на базе ZBS243 - ESL/ценники от Solum/Samsung. Его можно использовать для настройки тегов электронной бумаги и снабжения их контентом.",
-			"pt": "Firmware e protocolo alternativo para etiquetas de prateleira eletrônicas baseadas em ZBS243 - ESL / etiquetas de preços da Solum / Samsung. Ele pode ser usado para configurar tags de E-Paper e fornecer conteúdo a elas.",
-			"nl": "Alternatieve firmware en protocol voor de op ZBS243 gebaseerde elektronische planklabels - ESL / prijskaartjes van Solum / Samsung. Het kan worden gebruikt om E-Paper-tags in te stellen en deze van inhoud te voorzien.",
-			"fr": "Micrologiciel et protocole alternatifs pour les étiquettes électroniques pour étagères basées sur ZBS243 - ESL / étiquettes de prix de Solum / Samsung. Il peut être utilisé pour configurer les balises E-Paper et leur fournir du contenu.",
-			"it": "Firmware e protocollo alternativi per le etichette elettroniche per scaffali basate su ZBS243 - ESL / cartellini dei prezzi di Solum / Samsung. Può essere utilizzato per impostare tag E-Paper e fornire loro contenuti.",
-			"es": "Firmware y protocolo alternativos para etiquetas electrónicas para estantes basadas en ZBS243 - ESL / etiquetas de precios de Solum / Samsung. Se puede utilizar para configurar etiquetas de papel electrónico y proporcionarles contenido.",
-			"pl": "Alternatywne oprogramowanie i protokół dla elektronicznych etykiet półkowych opartych na ZBS243 - ESL / metki firmy Solum / Samsung. Można go używać do konfigurowania znaczników e-papieru i dostarczania im treści.",
-			"uk": "Альтернативне мікропрограмне забезпечення та протокол для електронних етикеток на полиці на основі ZBS243 - ESL / цінники від Solum / Samsung. Його можна використовувати для налаштування тегів E-Paper і надання їм вмісту.",
-			"zh-cn": "基于 ZBS243 的电子货架标签的替代固件和协议 - Solum / Samsung 的 ESL/价格标签。它可用于设置电子纸标签​​并为其提供内容。"
-		},
-		"authors": ["DutchmanNL <oss@DrozmotiX.eu>"],
-		"keywords": ["epaper", "openepaper", "openepaperlink"],
-		"license": "MIT",
-		"platform": "Javascript/Node.js",
-		"main": "build/main.js",
-		"icon": "open-epaper-link.png",
-		"enabled": true,
-		"extIcon": "https://raw.githubusercontent.com/DrozmotiX/ioBroker.open-epaper-link/main/admin/open-epaper-link.png",
-		"readme": "https://github.com/DrozmotiX/ioBroker.open-epaper-link/blob/main/README.md",
-		"loglevel": "info",
-		"mode": "daemon",
-		"type": "hardware",
-		"compact": true,
-		"connectionType": "local",
-		"dataSource": "push",
-		"adminUI": {
-			"config": "json"
-		},
-		"dependencies": [
-			{
-				"js-controller": ">=3.3.22"
-			}
-		],
-		"globalDependencies": [
-			{
-				"admin": ">=5.1.13"
-			}
-		]
-	},
-	"native": {
-		"option1": true,
-		"option2": "42"
-	},
-	"objects": [],
-	"instanceObjects": [
-		{
-			"_id": "info",
-			"type": "channel",
-			"common": {
-				"name": "Information"
-			},
-			"native": {}
-		},
-		{
-			"_id": "info.connection",
-			"type": "state",
-			"common": {
-				"role": "indicator.connected",
-				"name": "Device or service connected",
-				"type": "boolean",
-				"read": true,
-				"write": false,
-				"def": false
-			},
-			"native": {}
-		}
-	]
+    "common": {
+        "name": "open-epaper-link",
+        "version": "0.0.1",
+        "news": {
+            "0.0.1": {
+                "en": "initial release",
+                "de": "Erstveröffentlichung",
+                "ru": "Начальная версия",
+                "pt": "lançamento inicial",
+                "nl": "Eerste uitgave",
+                "fr": "Première version",
+                "it": "Versione iniziale",
+                "es": "Versión inicial",
+                "pl": "Pierwsze wydanie",
+                "uk": "Початкова версія",
+                "zh-cn": "首次出版"
+            }
+        },
+        "title": "OpenEPaperLink",
+        "titleLang": {
+            "en": "OpenEPaperLink",
+            "de": "OpenEPaperLink",
+            "ru": "OpenEPaperLink",
+            "pt": "OpenEPaperLink",
+            "nl": "OpenEPaperLink",
+            "fr": "OuvrirEPaperLink",
+            "it": "OpenEPaperLink",
+            "es": "OpenEPaperLink",
+            "pl": "Otwórz EPaperLink",
+            "uk": "OpenEPaperLink",
+            "zh-cn": "打开电子纸链接"
+        },
+        "desc": {
+            "en": "Alternative firmware and protocol for the ZBS243-based Electronic Shelf Labels - ESL / price tags by Solum / Samsung. It can be used to setup E-Paper tags and supply them with content.",
+            "de": "Alternative Firmware und Protokoll für die ZBS243-basierten elektronischen Regaletiketten – ESL/Preisschilder von Solum/Samsung. Damit lassen sich E-Paper-Tags einrichten und mit Inhalten versorgen.",
+            "ru": "Альтернативная прошивка и протокол для электронных ценников на базе ZBS243 - ESL/ценники от Solum/Samsung. Его можно использовать для настройки тегов электронной бумаги и снабжения их контентом.",
+            "pt": "Firmware e protocolo alternativo para etiquetas de prateleira eletrônicas baseadas em ZBS243 - ESL / etiquetas de preços da Solum / Samsung. Ele pode ser usado para configurar tags de E-Paper e fornecer conteúdo a elas.",
+            "nl": "Alternatieve firmware en protocol voor de op ZBS243 gebaseerde elektronische planklabels - ESL / prijskaartjes van Solum / Samsung. Het kan worden gebruikt om E-Paper-tags in te stellen en deze van inhoud te voorzien.",
+            "fr": "Micrologiciel et protocole alternatifs pour les étiquettes électroniques pour étagères basées sur ZBS243 - ESL / étiquettes de prix de Solum / Samsung. Il peut être utilisé pour configurer les balises E-Paper et leur fournir du contenu.",
+            "it": "Firmware e protocollo alternativi per le etichette elettroniche per scaffali basate su ZBS243 - ESL / cartellini dei prezzi di Solum / Samsung. Può essere utilizzato per impostare tag E-Paper e fornire loro contenuti.",
+            "es": "Firmware y protocolo alternativos para etiquetas electrónicas para estantes basadas en ZBS243 - ESL / etiquetas de precios de Solum / Samsung. Se puede utilizar para configurar etiquetas de papel electrónico y proporcionarles contenido.",
+            "pl": "Alternatywne oprogramowanie i protokół dla elektronicznych etykiet półkowych opartych na ZBS243 - ESL / metki firmy Solum / Samsung. Można go używać do konfigurowania znaczników e-papieru i dostarczania im treści.",
+            "uk": "Альтернативне мікропрограмне забезпечення та протокол для електронних етикеток на полиці на основі ZBS243 - ESL / цінники від Solum / Samsung. Його можна використовувати для налаштування тегів E-Paper і надання їм вмісту.",
+            "zh-cn": "基于 ZBS243 的电子货架标签的替代固件和协议 - Solum / Samsung 的 ESL/价格标签。它可用于设置电子纸标签​​并为其提供内容。"
+        },
+        "authors": [
+            "DutchmanNL <oss@DrozmotiX.eu>"
+        ],
+        "keywords": [
+            "epaper",
+            "openepaper",
+            "openepaperlink"
+        ],
+        "license": "MIT",
+        "platform": "Javascript/Node.js",
+        "main": "build/main.js",
+        "icon": "open-epaper-link.png",
+        "enabled": true,
+        "extIcon": "https://raw.githubusercontent.com/DrozmotiX/ioBroker.open-epaper-link/main/admin/open-epaper-link.png",
+        "readme": "https://github.com/DrozmotiX/ioBroker.open-epaper-link/blob/main/README.md",
+        "loglevel": "info",
+        "mode": "daemon",
+        "type": "hardware",
+        "compact": true,
+        "connectionType": "local",
+        "dataSource": "push",
+        "adminUI": {
+            "config": "json"
+        },
+        "messagebox": true,
+        "subscribe": "messagebox",
+        "dependencies": [
+            {
+                "js-controller": ">=3.3.22"
+            }
+        ],
+        "globalDependencies": [
+            {
+                "admin": ">=5.1.13"
+            }
+        ]
+    },
+    "native": {
+        "option1": true,
+        "option2": "42"
+    },
+    "objects": [],
+    "instanceObjects": [
+        {
+            "_id": "info",
+            "type": "channel",
+            "common": {
+                "name": "Information"
+            },
+            "native": {}
+        },
+        {
+            "_id": "info.connection",
+            "type": "state",
+            "common": {
+                "role": "indicator.connected",
+                "name": "Device or service connected",
+                "type": "boolean",
+                "read": true,
+                "write": false,
+                "def": false
+            },
+            "native": {}
+        }
+    ]
 }

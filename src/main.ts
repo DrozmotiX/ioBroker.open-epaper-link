@@ -128,21 +128,141 @@ class OpenEpaperLink extends utils.Adapter {
 	}
 
 	// If you need to accept messages in your adapter, uncomment the following block and the corresponding line in the constructor.
-	// /**
-	//  * Some message was sent to this instance over message box. Used by email, pushover, text2speech, ...
-	//  * Using this method requires "common.messagebox" property to be set to true in io-package.json
-	//  */
-	// private onMessage(obj: ioBroker.Message): void {
-	// 	if (typeof obj === 'object' && obj.message) {
-	// 		if (obj.command === 'send') {
-	// 			// e.g. send email or pushover or whatever
-	// 			this.log.info('send command');
+	/**
+	 * Some message was sent to this instance over message box. Used by email, pushover, text2speech, ...
+	 * Using this method requires "common.messagebox" property to be set to true in io-package.json
+	 */
+	private onMessage(obj: ioBroker.Message): void {
+		this.log.debug('Data from configuration received : ' + JSON.stringify(obj));
+		if (typeof obj === 'object' && obj.message) {
+			this.log.debug('Data from configuration received : ' + JSON.stringify(obj));
+			// if (obj.command === 'send') {
+			// e.g. send email or pushover or whatever
 
-	// 			// Send response in callback if required
-	// 			if (obj.callback) this.sendTo(obj.from, obj.command, 'Message received', obj.callback);
-	// 		}
-	// 	}
-	// }
+			try {
+				switch (obj.command) {
+					//ToDo previous add function to be removed
+					case '_addUpdateAP':
+						// eslint-disable-next-line no-case-declarations
+						const ipValid = this.validateIPAddress(obj.message['apIP']);
+						if (!ipValid) {
+							this.log.warn(`You entered an incorrect IP-Address, cannot add device !`);
+
+							this.sendTo(
+								obj.from,
+								obj.command,
+								{
+									type: 'error',
+									message: 'connection failed',
+								},
+								obj.callback,
+							);
+						} else {
+							this.log.info(`Valid IP address received`);
+							this.wsConnectionHandler(obj.message['apIP']);
+						}
+						break;
+					//
+					case 'loadAccessPoints':
+						{
+							let data = {};
+
+							const tableEntry = [];
+
+							for (const device in apConnection) {
+								tableEntry.push({
+									apName: apConnection[device].deviceName,
+									ip: apConnection[device].ip,
+									connectState: apConnection[device].connectionStatus,
+								});
+							}
+
+							data = {
+								native: {
+									accessPointTable: tableEntry,
+								},
+							};
+							this.sendTo(obj.from, obj.command, data, obj.callback);
+						}
+						break;
+					//
+					// Front End message handler to load IP-Address dropDown with all current known devices
+					case 'getApName':
+						{
+							const dropDownEntry = [];
+							for (const device in apConnection) {
+								dropDownEntry.push({
+									label: apConnection[device].deviceName,
+									value: apConnection[device].deviceName,
+								});
+							}
+							this.sendTo(obj.from, obj.command, dropDownEntry, obj.callback);
+						}
+						break;
+
+					case 'getApIP':
+						{
+							const dropDownEntry = [];
+							for (const device in apConnection) {
+								dropDownEntry.push({
+									label: apConnection[device].ip,
+									value: apConnection[device].ip,
+								});
+							}
+							this.sendTo(obj.from, obj.command, dropDownEntry, obj.callback);
+						}
+						break;
+
+					// Handle front-end messages to delete devices
+					// case 'deleteDevice':
+					// 	this.messageResponse[obj.message.ip] = obj;
+					// 	if (clientDetails[obj.message.ip]) {
+					// 		// Ensure all existing connections are closed, will trigger disconnect event to clean-up memory attributes
+					// 		clientDetails[obj.message.ip].client.disconnect();
+					// 		// Try to delete Device Object including all underlying states
+					// 		try {
+					// 			await this.delObjectAsync(clientDetails[obj.message.ip].deviceName, { recursive: true });
+					// 		} catch (e) {
+					// 			// Deleting device channel failed
+					// 		}
+					//
+					// 		// Clean memory data
+					// 		delete clientDetails[obj.message.ip];
+					//
+					// 		// Send confirmation to frontend
+					// 		this.sendTo(
+					// 			this.messageResponse[obj.message.ip].from,
+					// 			this.messageResponse[obj.message.ip].command,
+					// 			{ result: 'OK - Device successfully removed' },
+					// 			this.messageResponse[obj.message.ip].callback,
+					// 		);
+					// 		delete this.messageResponse[obj.message.ip];
+					// 	} else {
+					// 		this.sendTo(
+					// 			obj.from,
+					// 			obj.command,
+					// 			{
+					// 				error: 'Provided IP-Address unknown, please refresh table and enter an valid IP-Address',
+					// 			},
+					// 			obj.callback,
+					// 		);
+					// 		return;
+					// 	}
+					//
+					// 	// this.sendTo(obj.from, obj.command, 1, obj.callback);
+					// 	break;
+				}
+			} catch (error) {
+				// this.errorHandler(`[onMessage]`, error);
+			}
+
+			// Send response in callback if required
+			// if (obj.callback) this.sendTo(obj.from, obj.command, 'Message received', obj.callback);
+			// }
+		}
+	}
+
+	}
 }
 
 if (require.main !== module) {
