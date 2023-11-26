@@ -15,10 +15,6 @@
 Alternative firmware and protocol for the ZBS243-based Electronic Shelf Labels - ESL / price tags by Solum / Samsung. It can be used to setup E-Paper tags and supply them with content.
 See GitHub Project [](https://github.com/jjwbruijn/OpenEPaperLink)
 
-## timing
-
-The protocol designed between tags and the access point prioritizes efficient battery use. Tags minimize active periods to conserve energy, mostly remaining in sleep mode. Every 40 seconds, a tag sends a brief 'check-in' message to the access point, seeking new info if prompted. Communication only occurs during check-ins as tags sleep otherwise. Weak signals prompt longer check-in intervals (up to 10 minutes), conserving battery. After failed attempts, tags gradually reduce check-ins to save energy. Check-in intervals recover if signal improves. Check-in details are viewable on the web interface. Adjusting the 'Maximum sleep' in AP settings further saves battery by setting sleep durations. Real-time responses aren't feasible due to battery limitations, resulting in delays of about 40-60 seconds.
-
 > [!Note] Development status
 > This repository currently only has a basic "meta" adapter source and admin configuration framework which will be translated to a working solution during the next weeks.
 
