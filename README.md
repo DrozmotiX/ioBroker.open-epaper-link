@@ -1,4 +1,5 @@
-![Logo](admin/open-epaper-link.png)
+![logo-iobroker-oepl](https://github.com/DrozmotiX/iobroker.open-epaper-link/assets/3323812/f25cfcff-74fc-4892-9ca6-98aeebb99c62)
+
 # ioBroker.open-epaper-link
 
 [![NPM version](https://img.shields.io/npm/v/iobroker.open-epaper-link.svg)](https://www.npmjs.com/package/iobroker.open-epaper-link)
