@@ -176,7 +176,7 @@ class OpenEpaperLink extends utils.Adapter {
 					},
 				});
 				jsonExplorer.traverseJson(
-					modifiedMessage,
+					modifiedMessage[0],
 					// eslint-disable-next-line @typescript-eslint/ban-ts-comment
 					// @ts-expect-error
 					`${apConnection[deviceIP].deviceName}.tags.${message && message['tags'][0].mac}`,
