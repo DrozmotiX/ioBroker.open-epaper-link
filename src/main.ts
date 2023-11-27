@@ -56,7 +56,7 @@ class OpenEpaperLink extends utils.Adapter {
 	}
 
 	// Try to contact and read data of already known devices
-	private async tryKnownDevices() {
+	private async tryKnownDevices(): Promise<void> {
 		try {
 			// Get all current devices from adapter tree
 			this.log.info(`Try to connect to know devices`);
