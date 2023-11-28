@@ -141,7 +141,11 @@ class OpenEpaperLink extends utils.Adapter {
 		apConnection[deviceIP].connection.on('message', (message: string) => {
 			//ToDo: Design messageHandler to write values to states
 			this.log.debug(`Received message from server: ${message}`);
-			message = JSON.parse(message);
+			try {
+				message = JSON.parse(message);
+			} catch (e) {
+				this.log.error(`Cannot parse JSON ${message} | ${e}`);
+			}
 			let modifiedMessage;
 
 			// eslint-disable-next-line @typescript-eslint/ban-ts-comment

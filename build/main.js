@@ -103,7 +103,12 @@ class OpenEpaperLink extends utils.Adapter {
     });
     apConnection[deviceIP].connection.on("message", (message) => {
       this.log.debug(`Received message from server: ${message}`);
-      message = JSON.parse(message);
+      try {
+        message = JSON.parse(message);
+      } catch (e) {
+        this.log.error(`Cannot parse JSON ${message} | ${e} | ${e.stack}`)
+      }
+
       let modifiedMessage;
       if (message && message["sys"]) {
         modifiedMessage = message["sys"];
