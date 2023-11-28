@@ -13,7 +13,7 @@
 	"ttlConnectState" : "Connection status",
 	"ttpConnectState" : "Websocket connection status with Access Point",
 	"lblLoadAccessPoints": "Load all by adpter known Access Points",
-	"ttpLoadAccessPoints": "Sends command to backend to load all current know Access Point and their connections state",
+	"ttpLoadAccessPoints": "Sends command to backend to load all current known Access Points and their connection state",
 	"lblTxtNoButtonsIfNotActive": "Adapter must be running to show or add connected Access Points",
 	"lblApName": "AccessPoint Name",
 	"ttpApName": "(Alias) Name of AccessPoint)",
