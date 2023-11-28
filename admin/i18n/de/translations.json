@@ -13,7 +13,7 @@
     "ttpIP-Address": "AccessPoint IP-Adresse",
     "ttlConnectState": "Verbindungsstatus",
     "ttpConnectState": "Websocket-Verbindungsstatus mit Access Point",
-    "lblLoadAccessPoints": "Laden Sie alle vom Adpter bekannten Access Points",
+    "lblLoadAccessPoints": "Laden Sie alle vom Adapter bekannten Access Points",
     "ttpLoadAccessPoints": "Sendet einen Befehl an das Backend, um alle aktuell bekannten Access Points und deren Verbindungsstatus zu laden",
     "lblTxtNoButtonsIfNotActive": "Der Adapter muss ausgeführt werden, um verbundene Access Points anzuzeigen oder hinzuzufügen",
     "lblApName": "AccessPoint-Name",
