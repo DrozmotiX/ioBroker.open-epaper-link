@@ -123,7 +123,7 @@ class OpenEpaperLink extends utils.Adapter {
           }
         });
         import_iobroker_jsonexplorer.default.traverseJson(
-          modifiedMessage,
+          modifiedMessage[0],
           `${apConnection[deviceIP].deviceName}.tags.${message && message["tags"][0].mac}`
         );
       } else {
