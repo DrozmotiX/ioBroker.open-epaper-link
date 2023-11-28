@@ -34,6 +34,146 @@ const stateAttrb: StateAttr = {
 		role: 'info',
 		write: false,
 	},
+	mac: {
+  		type: 'string',
+  		name: 'MAC Address',
+  		role: 'state',
+  		write: false,
+	},
+	hash: {
+  		type: 'string',
+  		name: 'Hash',
+  		role: 'state',
+  		write: false,
+	},
+	lastseen: {
+  		type: 'number',
+  		name: 'Last Seen',
+  		role: 'state',
+  		write: false,
+	},
+	nextupdate: {
+  		type: 'number',
+  		name: 'Next Update',
+  		role:	'state',
+  		write: false,
+	},
+	nextcheckin: {
+  		type: 'number',
+  		name: 'Next Check-in',
+  		role: 'state',
+  		write: false,
+	},
+		pending: {
+  		type: 'boolean',
+  		name: 'Pending',
+  		role: 'state',
+  		write: false,
+	},
+	alias: {
+  		type: 'string',
+  		name: 'Alias',
+  		role: 'state',
+  		write: false,
+	},
+	contentMode: {
+  		type: 'number',
+  		name: 'Content Mode',
+  		role: 'state',
+  		write: false,
+	},
+	LQI: {
+  		type: 'number',
+  		name: 'Link Quality Indicator (LQI)',
+
+  		role: 'state',
+  		write: false,
+	},
+	RSSI: {
+  		type: 'number',
+  		name: 'Received Signal Strength Indicator (RSSI)',
+  		role: 'state',
+  		write: false,
+	},
+	temperature: {
+  		type: 'number',
+  		name: 'Temperature',
+  		role: 'state',
+  		write: false,
+	},
+	batteryMv: {
+  		type: 'number',
+  		name: 'Battery Voltage',
+  		role: 'state',
+  		write: false,
+	},
+	hwType: {
+  		type: 'number',
+  		name: 'Hardware Type',
+  		role: 'state',
+  		write: false,
+	},
+	wakeupReason: {
+  		type: 'number',
+  		name: 'Wakeup Reason',
+  		role: 'state',
+  		write: false,
+	},
+	capabilities: {
+  		type: 'number',
+  		name: 'Capabilities',
+  		role: 'state',
+  		write: false,
+	},
+	modecfgjson: {
+  		type: 'string',
+  		name: 'Mode Configuration JSON',
+  		role: 'state',
+  		write: false,
+	},
+	isexternal: {
+  		type: 'boolean',
+  		name: 'Is External',
+  		role: 'state',
+  		write: false,
+	},
+	apip: {
+  		type: 'string',
+  		name: 'API IP',
+  		role: 'state',
+  		write: false,
+	},
+	rotate: {
+  		type: 'number',
+  		name: 'Rotate',
+  		role: 'state',
+  		write: false,
+	},
+	lut: {
+  		type: 'number',
+  		name: 'Lookup Table (LUT)',
+  		role: 'state',
+  		write: false,
+	},
+	invert: {
+  		type: 'number',
+  		name: 'Invert',
+  		role: 'state',
+  		write: false,
+	},
+	ch: {
+  		type: 'number',
+  		name: 'Channel',
+  		role: 'state',
+  		write: false,
+	},
+	ver: {
+  		type: 'number',
+  		name: 'Version',
+  		role: 'state',
+  		write: false,
+	},
+
 };
 
 const BasicStates: MyObjects = {
